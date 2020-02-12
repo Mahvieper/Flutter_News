@@ -16,11 +16,9 @@ class _LoginState extends State<Login> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    setState(() {
-      getCurrentUser().then((res) {
+     /* getCurrentUser().then((res) {
         result = res;
-      });
-    });
+    });*/
   }
 
   @override
@@ -30,7 +28,7 @@ class _LoginState extends State<Login> {
         return SystemChannels.platform.invokeMethod('SystemNavigator.pop');
       },
       child: FutureBuilder(
-        future: result,
+        future: getCurrentUser(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
