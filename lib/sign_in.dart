@@ -15,7 +15,8 @@ Future getCurrentUser() async {
 
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+  final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
   String name;
   String email;
   String imageUrl;
@@ -51,7 +52,8 @@ Future<String> signInWithGoogle() async {
 
 signOutGoogle(BuildContext context) async {
   //await googleSignIn.signOut();
+  await FirebaseAuth.instance.signOut();
   await _auth.signOut();
-  Navigator.popUntil(context, ModalRoute.withName("/"));
+  Navigator.popUntil(context, ModalRoute.withName("/login"));
   print("User Sign Out");
 }

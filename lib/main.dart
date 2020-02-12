@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/home.dart';
 import 'package:news_app/login.dart';
 import 'package:news_app/splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blueGrey),
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => Login(),
+        '/login': (context) => Login(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-
+        '/home': (context) => HomePage(),
       },
       title: "News Application",
       home: SplashScreen(),

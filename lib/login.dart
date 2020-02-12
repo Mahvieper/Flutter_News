@@ -9,39 +9,49 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  var result;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      getCurrentUser().then((res) {
+        result = res;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-    future: getCurrentUser(),
-    builder: (context , snapshot) {
-        if(ConnectionState.waiting == snapshot.connectionState)
-          return Text("Wating for Login");
-              else {
-                if(snapshot.hasData) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomePage()));
-                }
-                else
-                  {
-                    return Scaffold(
-                      body: Container(
-                        color: Colors.white,
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              FlutterLogo(size: 150),
-                              SizedBox(height: 50),
-                              _signInButton(),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }
+      future: result,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else {
+          if (snapshot.data == null) {
+            return Scaffold(
+              body: Container(
+                color: Colors.white,
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FlutterLogo(size: 150),
+                      SizedBox(height: 50),
+                      _signInButton(),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return HomePage();
+          }
         }
-
-    },
+      },
     );
   }
 
