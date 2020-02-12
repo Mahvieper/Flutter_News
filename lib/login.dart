@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:news_app/home.dart';
 
 import 'sign_in.dart';
@@ -24,34 +25,39 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: result,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else {
-          if (snapshot.data == null) {
-            return Scaffold(
-              body: Container(
-                color: Colors.white,
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      FlutterLogo(size: 150),
-                      SizedBox(height: 50),
-                      _signInButton(),
-                    ],
+    return WillPopScope(
+      onWillPop: () {
+        return SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      },
+      child: FutureBuilder(
+        future: result,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else {
+            if (snapshot.data == null) {
+              return Scaffold(
+                body: Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset("asset/news_sign.png",height: 150,),
+                        SizedBox(height: 50),
+                        _signInButton(),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          } else {
-            return HomePage();
+              );
+            } else {
+              return HomePage();
+            }
           }
-        }
-      },
+        },
+      ),
     );
   }
 

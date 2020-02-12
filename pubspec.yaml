@@ -21,12 +21,17 @@ dependencies:
   http: ^0.12.0+4
   liquid_progress_indicator: ^0.3.2
   flappy_search_bar: 1.4.1
-  cuberto_bottom_bar: ^1.1.0
   firebase_admob: ^0.5.2
   firebase_auth: ^0.15.4
   google_sign_in: ^4.1.1
+  flutter_launcher_icons: ^0.7.4
   flutter:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "asset/GooglePlayStore.png"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

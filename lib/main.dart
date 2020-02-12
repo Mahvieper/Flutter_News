@@ -12,14 +12,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blueGrey),
+      initialRoute: '/',
       routes: {
+        '/' : (context) => SplashScreen(),
         // When navigating to the "/" route, build the FirstScreen widget.
         '/login': (context) => Login(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/home': (context) => HomePage(),
       },
       title: "News Application",
-      home: SplashScreen(),
     );
   }
 }

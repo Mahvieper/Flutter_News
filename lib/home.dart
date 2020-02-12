@@ -7,10 +7,10 @@ import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:cuberto_bottom_bar/cuberto_bottom_bar.dart';
 import 'package:news_app/SearchPage.dart';
 import 'package:news_app/login.dart';
 import 'clickedarticle.dart';
+
 import 'model/article.dart';
 import 'sign_in.dart';
 
@@ -28,8 +28,10 @@ class _HomePageState extends State<HomePage> {
   TextEditingController editingController = TextEditingController();
   String currentTitle;
   Color currentColor;
+  IconData iconFav = Icons.favorite_border;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String query = "Todays news";
+
   Future<List<Article>> getNews() async {
     if (query.isEmpty) {
       setState(() {
@@ -191,7 +193,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         appBar: AppBar(
-          title: Text("Live News"),
+          title: Image.asset("asset/news_logo.png",height: 40,),
           actions: <Widget>[
             Padding(
               padding: const EdgeInsets.only(right: 15),
@@ -200,6 +202,7 @@ class _HomePageState extends State<HomePage> {
                     //signOutGoogle(context);
                     await FirebaseAuth.instance.signOut();
                     await _auth.signOut();
+                    Navigator.popUntil(context, ModalRoute.withName("/login"));
                     Navigator.popAndPushNamed(context, '/login');
                     //  Navigator.popUntil(context, ModalRoute.withName("/login"));
                   },
@@ -208,7 +211,7 @@ class _HomePageState extends State<HomePage> {
           ],
           centerTitle: true,
         ),
-        bottomNavigationBar: CubertoBottomBar(
+        /*bottomNavigationBar: CubertoBottomBar(
           inactiveIconColor: inactiveColor,
           tabStyle: CubertoTabStyle
               .STYLE_FADED_BACKGROUND, // By default its CubertoTabStyle.STYLE_NORMAL
@@ -224,22 +227,22 @@ class _HomePageState extends State<HomePage> {
               tabColor: Colors.deepPurple,
             ),
             TabData(
-              iconData: Icons.search,
-              title: "Search",
+              iconData: Icons.favorite,
+              title: "Saved Article",
               tabColor: Colors.pink,
             ),
           ],
           onTabChangedListener: (position, title, color) {
-            /* if(position == 1) {
+            *//* if(position == 1) {
             Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage()));
-          }*/
+          }*//*
             setState(() {
               currentPage = position;
               currentTitle = title;
               currentColor = color;
             });
           },
-        ),
+        ),*/
         body: FutureBuilder(
           future: getNews(),
           builder: (context, snapshot) {
@@ -335,7 +338,7 @@ class _HomePageState extends State<HomePage> {
                                         child: Text(
                                           article.description,
                                           style: TextStyle(fontSize: 17),
-                                        ))
+                                        )),
                                   ],
                                 ),
                               ),
